@@ -1,16 +1,14 @@
 <?php
 
-namespace Pamo\User;
+namespace Pamo\Game;
 
 use Anax\DI\DIFactoryConfig;
-use Pamo\User\HTMLForm\CreateUserForm;
-use Pamo\User\HTMLForm\UserLoginForm;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test the SampleJsonController.
  */
-class UserControllerTest extends TestCase
+class GameControllerTest extends TestCase
 {
 
     // Create the di container.
@@ -37,12 +35,65 @@ class UserControllerTest extends TestCase
         $di = $this->di;
 
         // Setup the controller
-        $this->controller = new UserController();
+        $this->controller = new GameController();
         $this->controller->setDI($this->di);
         $this->controller->initialize();
-        $session = $di->get("session");
-        $session->start();
-        $session->set("testdb", true);
+        $this->session = $di->get("session");
+        $this->session->start();
+        $this->session->set("testdb", true);
+    }
+
+
+
+    /**
+     * Test the route "vote".
+     */
+    public function testVoteAction()
+    {
+        $res = $this->controller->voteAction("question", 1, "down");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "doe",
+            "email" => "doe@mail.com"
+        ]);
+
+        $res = $this->controller->voteAction("question", 1, "up");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "doe",
+            "email" => "doe@mail.com"
+        ]);
+
+        $res = $this->controller->voteAction("answer", 2, "down");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "testing",
+            "email" => "doe@mail.com"
+        ]);
+
+        $res = $this->controller->voteAction("comment-question", 1, "up");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $res = $this->controller->voteAction("comment-answer", 1, "up");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $res = $this->controller->voteAction("question", 1, "");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
     }
 
 
@@ -50,9 +101,62 @@ class UserControllerTest extends TestCase
     /**
      * Test the route "index".
      */
-    public function testIndexActionGet()
+    public function testQuestionAction()
     {
-        $res = $this->controller->indexActionGet();
+        $res = $this->controller->questionAction(1);
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "doe",
+            "email" => "doe@mail.com"
+        ]);
+
+        $this->di->request->setGlobals([
+            "get" => [
+                "admin" => "question",
+                "adminType" => "edit"
+            ]
+        ]);
+
+        $res = $this->controller->questionAction(1);
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->di->request->setGlobals([
+            "get" => [
+                "admin" => "answer",
+                "adminType" => "edit"
+            ]
+        ]);
+
+        $res = $this->controller->questionAction(1);
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->di->request->setGlobals([
+            "get" => [
+                "admin" => "comment-question",
+                "adminType" => "edit"
+            ]
+        ]);
+
+        $res = $this->controller->questionAction(1);
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->di->request->setGlobals([
+            "get" => [
+                "admin" => "comment-answer",
+                "adminType" => "edit"
+            ]
+        ]);
+
+        $res = $this->controller->questionAction(1);
         $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
@@ -60,93 +164,7 @@ class UserControllerTest extends TestCase
 
 
 
-    /**
-     * Test the route "create".
-     */
-    public function testCreateAction()
-    {
-        $res = $this->controller->createAction();
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
-        $_SERVER["REQUEST_METHOD"] = "POST";
-
-        $this->di->request->setGlobals([
-            "post" => [
-                "anax/htmlform-id" => "Pamo\User\HTMLForm\CreateUserForm",
-                "username" => "test1",
-                "email" => "test@mail.com",
-                "password" => "test",
-                "repeat-password" => "test",
-                "submit" => "Create user"
-            ]
-        ]);
-
-        $res = $this->controller->createAction();
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-
-        $this->di->request->setGlobals([
-            "post" => [
-                "anax/htmlform-id" => "Pamo\User\HTMLForm\CreateUserForm",
-                "username" => "test2",
-                "email" => "test@mail.com",
-                "password" => "no",
-                "repeat-password" => "match",
-                "submit" => "Create user"
-            ]
-        ]);
-
-        $res = $this->controller->createAction();
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-    }
-
-
-
-    /**
-     * Test the route "login".
-     */
-    public function testLoginAction()
-    {
-        $res = $this->controller->loginAction();
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-
-        $_SERVER["REQUEST_METHOD"] = "POST";
-
-        $this->di->request->setGlobals([
-            "post" => [
-                "anax/htmlform-id" => "Pamo\User\HTMLForm\UserLoginForm",
-                "username" => "test1",
-                "password" => "test",
-                "submit" => "Login"
-            ]
-        ]);
-
-        $res = $this->controller->loginAction();
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-
-        $this->di->request->setGlobals([
-            "post" => [
-                "anax/htmlform-id" => "Pamo\User\HTMLForm\UserLoginForm",
-                "username" => "test1",
-                "password" => "wrong",
-                "submit" => "Login"
-            ]
-        ]);
-
-        $res = $this->controller->loginAction();
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-    }
 
 
 

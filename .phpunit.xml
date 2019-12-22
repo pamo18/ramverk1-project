@@ -5,16 +5,8 @@
     <testsuites>
         <testsuite name="all">
             <directory>test</directory>
-            <!-- <exclude>./test/Controller/IPValidateControllerTest.php</exclude>
-            <exclude>./test/Controller/IPValidateJsonControllerTest.php</exclude>
-            <exclude>./test/Controller/WeatherControllerTest.php</exclude>
-            <exclude>./test/Controller/WeatherJsonControllerTest.php</exclude>
-            <exclude>./test/Controller/IPGeotagControllerTest.php</exclude>
-            <exclude>./test/Controller/IPGeotagJsonControllerTest.php</exclude>
-            <exclude>./test/GeoTag</exclude>
-            <exclude>./test/IPGeotag</exclude>
-            <exclude>./test/IPValidate</exclude>
-            <exclude>./test/Weather</exclude> -->
+            <!-- <exclude>./test/Controller/GameControllerTest.php</exclude>
+            <exclude>./test/Controller/UserControllerTest.php</exclude> -->
         </testsuite>
     </testsuites>
 

@@ -81,10 +81,6 @@ class Game
      */
     public function vote($type, $id, $vote)
     {
-        if (!$this->activeUser()) {
-            return $this->di->get("response")->redirect("user/login");
-        }
-
         $currentUser = $this->session->get("user", null);
 
         switch ($type) {
@@ -105,8 +101,9 @@ class Game
         $table->find("id", $id);
 
         $eligible = $this->canUserVote($table->user);
+
         if (!$eligible) {
-            return $this->di->get("response")->redirect("user/ineligible")->send();
+            return false;
         }
 
         if ($vote === "up") {
@@ -132,7 +129,7 @@ class Game
         $user->save();
         $this->updateRank($currentUser["username"], 1);
 
-        $this->di->get("response")->redirect("game/question/$questionId")->send();
+        return $questionId;
     }
 
     /**

@@ -110,13 +110,19 @@ class GameController implements ContainerInjectableInterface
      *
      * @return null as a response object
      */
-    public function voteAction(string $type, int $id, string $vote) : object
+    public function voteAction(string $type, int $id, string $vote)
     {
         if (!$this->game->activeUser()) {
             return $this->di->get("response")->redirect("user/login");
         }
 
-        $this->game->vote($type, $id, $vote);
+        $res = $this->game->vote($type, $id, $vote);
+
+        if (!$res) {
+            return $this->di->get("response")->redirect("user/ineligible");
+        }
+
+        return $this->di->get("response")->redirect("game/question/$res");
     }
 
 
