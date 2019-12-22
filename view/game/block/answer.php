@@ -37,7 +37,7 @@ namespace Anax\View;
                 <br>
                 <?php if ($question->accepted === $answer->id) { ?>
                     <i id="unaccept-answer-<?= $answer->id ?>" class="fas fa-check-circle accepted"></i>
-                    <script>reloadHere("unaccept-answer-<?= $answer->id ?>", "<?= url("question/unaccept/$question->id/$answer->id") ?>");</script>
+                    <script>reloadHere("unaccept-answer-<?= $answer->id ?>", "<?= url("question/unaccept/$question->id") ?>");</script>
                 <?php } else { ?>
                     <i id="accept-answer-<?= $answer->id ?>" class="fas fa-star"></i>
                     <script>reloadHere("accept-answer-<?= $answer->id ?>", "<?= url("question/accept/$question->id/$answer->id") ?>");</script>

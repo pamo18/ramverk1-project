@@ -62,7 +62,7 @@ class MyActiveRecord extends ActiveRecordModel
      *
      * @return array of object of this class
      */
-    public function findAllGroupOrder($select = "*", $groupBy, $orderBy, $limit = 1000)
+    public function findAllGroupOrder($select, $groupBy, $orderBy, $limit = 1000)
     {
         $this->checkDb();
         return $this->db->connect()

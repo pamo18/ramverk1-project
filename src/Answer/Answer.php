@@ -12,7 +12,7 @@ class Answer extends MyActiveRecord
     /**
      * @var string $tableName name of the database table.
      */
-protected $tableName = "Answer";
+    protected $tableName = "Answer";
 
 
 

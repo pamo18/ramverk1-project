@@ -3,17 +3,23 @@
 namespace Anax\View;
 
 // Gather incoming variables and use default values if not set
-$result = isset($result) ? $result : null;
+$search = isset($search) ? $search : null;
 $results = isset($result["results"]) ? $result["results"] : null;
-// var_dump($result);
 
-?><h1 class="center">Game Tag - <?= $search ?></h1>
-
-<?php if (!$results) : ?>
-    <p>Sorry there are no results for <?= $search ?>.</p>
-    <?php return;
-endif;
 ?>
+
+<h1 class="center">Game Tag - <?= $search ? $search : "Search" ?></h1>
+
+<?php if (isset($form)) { ?>
+    <?= $form ?>
+<?php } ?>
+
+<?php if ($search && !$results) { ?>
+    <p class="center">Sorry there are no results for <?= $search ?></p>
+    <?php return;
+} else if (!$search && !$results) {
+    return;
+} ?>
 
 <script type="text/javascript" src="<?= url('js/pamo.js') ?>"></script>
 

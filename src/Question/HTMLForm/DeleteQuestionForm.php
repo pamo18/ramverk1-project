@@ -90,7 +90,7 @@ class DeleteQuestionForm extends FormModel
         $answer = $game->answer;
         $answersToDelete = $answer->findAllWhere("questionid = ?", $id);
 
-        foreach($answersToDelete as $ans) {
+        foreach ($answersToDelete as $ans) {
             $answer->find("id", $ans->id);
             $answer->delete();
         }
@@ -108,7 +108,7 @@ class DeleteQuestionForm extends FormModel
         $commentAnswer = $game->commentAnswer;
         $commentsToDelete = $commentAnswer->findAllWhere("questionid = ?", $id);
 
-        foreach($commentsToDelete as $comment) {
+        foreach ($commentsToDelete as $comment) {
             $commentAnswer->find("id", $comment->id);
             $commentAnswer->delete();
         }
@@ -126,7 +126,7 @@ class DeleteQuestionForm extends FormModel
         $commentQuestion = $game->commentQuestion;
         $commentsToDelete = $commentQuestion->findAllWhere("questionid = ?", $id);
 
-        foreach($commentsToDelete as $comment) {
+        foreach ($commentsToDelete as $comment) {
             $commentQuestion->find("id", $comment->id);
             $commentQuestion->delete();
         }
@@ -144,7 +144,7 @@ class DeleteQuestionForm extends FormModel
         $tagQuestion = $game->tagQuestion;
         $tagsToDelete = $tagQuestion->findAllWhere("questionid = ?", $id);
 
-        foreach($tagsToDelete as $tag) {
+        foreach ($tagsToDelete as $tag) {
             $tagQuestion->find("id", $tag->id);
             $tagQuestion->delete();
         }

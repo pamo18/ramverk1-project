@@ -25,6 +25,11 @@ return [
             "title" => "Tags",
         ],
         [
+            "text" => "Game Tag",
+            "url" => "tag/info",
+            "title" => "Game Tag",
+        ],
+        [
             "text" => "Users",
             "url" => "user",
             "title" => "Users",

@@ -6,17 +6,17 @@ use Pamo\MultiCurl\MultiCurl;
 
 /**
  * GameTag
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+ * @SuppressWarnings(PHPMD.NPathComplexity)
  */
 class GameTag
 {
     /**
      * @var object $multiCurl tool.
      * @var string $baseAddress for the API.
-     * @var string $apiKey for authentication.
      */
     private $multiCurl;
     private $baseAddress;
-    private $apiKey;
 
 
 

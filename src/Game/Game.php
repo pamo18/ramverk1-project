@@ -14,6 +14,7 @@ use Pamo\Comment\HTMLForm\UpdateCommentForm;
 
 /**
  * Game
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  */
 class Game
 {
@@ -139,7 +140,8 @@ class Game
      *
      * @return object
      */
-    public function updateRank($username, $rank) {
+    public function updateRank($username, $rank)
+    {
         switch (true) {
             case $rank <= 1:
                 $value = 1;
@@ -173,17 +175,14 @@ class Game
      */
     public function getQuestionForm($adminType, $questionId = null)
     {
-        $request = $this->di->get("request");
-        $adminId = $request->getGet("adminId", null);
-
         switch ($adminType) {
-            case "create";
+            case "create":
                 $questionForm = new CreateQuestionForm($this->di);
                 break;
-            case "edit";
+            case "edit":
                 $questionForm = new UpdateQuestionForm($this->di, $questionId);
                 break;
-            case "delete";
+            case "delete":
                 $questionForm = new DeleteQuestionForm($this->di, $questionId);
                 break;
             default:
@@ -205,13 +204,13 @@ class Game
         $adminId = $request->getGet("adminId", null);
 
         switch ($adminType) {
-            case "create";
+            case "create":
                 $answerForm = new CreateAnswerForm($this->di, $questionId, $this->activeUser("username"));
                 break;
-            case "edit";
+            case "edit":
                 $answerForm = new UpdateAnswerForm($this->di, $adminId);
                 break;
-            case "delete";
+            case "delete":
                 $answerForm = new DeleteAnswerForm($this->di, $adminId);
                 break;
             default:
@@ -234,13 +233,13 @@ class Game
         $answerId = $request->getGet("answerId", null);
 
         switch ($adminType) {
-            case "create";
+            case "create":
                 $commentForm = new CreateCommentForm($this->di, $table, $questionId, $answerId);
                 break;
-            case "edit";
+            case "edit":
                 $commentForm = new UpdateCommentForm($this->di, $table, $adminId);
                 break;
-            case "delete";
+            case "delete":
                 $commentForm = new DeleteCommentForm($this->di, $table, $adminId);
                 break;
             default:

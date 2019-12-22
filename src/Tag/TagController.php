@@ -4,11 +4,7 @@ namespace Pamo\Tag;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Pamo\Tag\HTMLForm\CreateTagForm;
-use Pamo\Tag\HTMLForm\DeleteTagForm;
-use Pamo\Tag\HTMLForm\UpdateTagForm;
-
-
+use Pamo\Tag\HTMLForm\SearchForm;
 
 /**
  * Tag controller.
@@ -61,18 +57,22 @@ class TagController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function infoActionGet($tag) : object
+    public function infoAction($search = null) : object
     {
-        $tag = str_replace("-", " ", $tag);
-        $gameTag = $this->di->get("game-tag");
-        $search = urlencode($tag);
-        $result = $gameTag->getAllData("/api/games?search=$search");
+        $search = str_replace("-", " ", $search);
+
+        if ($search) {
+            $gameTag = $this->di->get("game-tag");
+            $result = $gameTag->getAllData("/api/games?search=" . urlencode("$search"));
+        }
+
+        $form = new SearchForm($this->di, $search);
+        $form->check();
 
         $this->page->add($this->base . "/game-tag", [
-            "tags" => $this->game->tag->findAll(),
-            "game" => $this->game,
-            "result" => $result,
-            "search" => $tag
+            "result" => isset($result) ? $result : null,
+            "search" => $search,
+            "form" => $form->getHTML($this->game->getFormSettings())
         ]);
 
         return $this->page->render([

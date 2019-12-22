@@ -4,6 +4,7 @@ namespace Pamo\Gravatar;
 
 /**
  * Gravatar
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Gravatar
 {

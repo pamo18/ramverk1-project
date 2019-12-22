@@ -12,7 +12,7 @@ class CommentA extends MyActiveRecord
     /**
      * @var string $tableName name of the database table.
      */
-protected $tableName = "CommentAnswer";
+    protected $tableName = "CommentAnswer";
 
 
 

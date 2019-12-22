@@ -12,7 +12,7 @@ class Tag extends MyActiveRecord
     /**
      * @var string $tableName name of the database table.
      */
-protected $tableName = "Tag";
+    protected $tableName = "Tag";
 
 
 

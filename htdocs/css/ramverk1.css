@@ -5857,6 +5857,9 @@ article {
 .game-tag i:hover {
   color: #4caf50;
 }
+.game-tag video:focus {
+  outline: none;
+}
 /**-----------------------------------------/
  * User
  *-----------------------------------------*/

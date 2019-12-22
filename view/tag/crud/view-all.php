@@ -15,7 +15,8 @@ endif;
 
 <script type="text/javascript" src='js/pamo.js'></script>
 
-<?php foreach ($tags as $tag) : $name = str_replace(" ", "-", $tag->name); ?>
+<?php foreach ($tags as $tag) :
+    $name = str_replace(" ", "-", $tag->name); ?>
     <div class="flex-align-middle">
         <a class="button wide-button" href=<?= url("question/tag/$name") ?>>
             Go to questions for <?= $tag->name ?>

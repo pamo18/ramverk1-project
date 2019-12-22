@@ -6,7 +6,9 @@ $commentQuestions = isset($commentQuestions) ? $commentQuestions : null;
 
 ?>
 
-<?php if (!$commentQuestions) { return; } ?>
+<?php if (!$commentQuestions) {
+    return;
+} ?>
 
 <script type="text/javascript" src=<?= url("js/pamo.js") ?>></script>
 

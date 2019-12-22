@@ -11,6 +11,7 @@ use Pamo\User\HTMLForm\DeleteUserForm;
 
 /**
  * User controller.
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class UserController implements ContainerInjectableInterface
 {

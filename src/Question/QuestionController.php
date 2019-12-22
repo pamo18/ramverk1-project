@@ -5,10 +5,6 @@ namespace Pamo\Question;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Pamo\Question\HTMLForm\CreateQuestionForm;
-use Pamo\Question\HTMLForm\DeleteQuestionForm;
-use Pamo\Question\HTMLForm\UpdateQuestionForm;
-
-
 
 /**
  * Question controller.
@@ -124,7 +120,7 @@ class QuestionController implements ContainerInjectableInterface
             return $this->di->get("response")->redirect("user/login");
         }
 
-        $question = $this->db->question;
+        $question = $this->game->question;
         $question->find("id", $id);
         $question->accepted = $answerId;
 
@@ -142,13 +138,13 @@ class QuestionController implements ContainerInjectableInterface
      *
      * @return null
      */
-    public function unacceptAction(int $id, int $answerId)
+    public function unacceptAction(int $id)
     {
         if (!$this->game->activeUser()) {
             return $this->di->get("response")->redirect("user/login");
         }
 
-        $question = $this->db->question;
+        $question = $this->game->question;
         $question->find("id", $id);
         $question->accepted = null;
 

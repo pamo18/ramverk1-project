@@ -84,7 +84,7 @@ class DeleteAnswerForm extends FormModel
         $commentAnswer = $game->commentAnswer;
         $commentsToDelete = $commentAnswer->findAllWhere("answerid = ?", $id);
 
-        foreach($commentsToDelete as $comment) {
+        foreach ($commentsToDelete as $comment) {
             $commentAnswer->find("id", $comment->id);
             $commentAnswer->delete();
         }

@@ -39,6 +39,7 @@ class UserControllerTest extends TestCase
         // Setup the controller
         $this->controller = new UserController();
         $this->controller->setDI($this->di);
+        $this->controller->initialize();
         $session = $di->get("session");
         $session->start();
         $session->set("testdb", true);

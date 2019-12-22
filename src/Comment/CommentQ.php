@@ -12,7 +12,7 @@ class CommentQ extends MyActiveRecord
     /**
      * @var string $tableName name of the database table.
      */
-protected $tableName = "CommentQuestion";
+    protected $tableName = "CommentQuestion";
 
 
 

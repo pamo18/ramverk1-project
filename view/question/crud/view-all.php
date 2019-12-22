@@ -51,7 +51,8 @@ endif;
         <td width="40%">
             <div class="flex-row flex-align-middle">
                 <?php $tags = explode(",", $row->tags);
-                foreach ($tags as $tag) : $tagUrl = str_replace(" ", "-", $tag)?>
+                foreach ($tags as $tag) :
+                    $tagUrl = str_replace(" ", "-", $tag); ?>
                     <a class="button tag-button" href="<?= url("question/tag/$tagUrl") ?>"><?= $tag ?></a>
                     <a class="game-tag" href="<?= url("tag/info/$tagUrl") ?>">
                         <i class="fas fa-tag"></i>
