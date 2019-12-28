@@ -16,10 +16,7 @@ class Gravatar
 
 
     /**
-     * Geotag current place
-     *
-     * @param string $baseAddress for the API.
-     * @param string $apiKey for authentication.
+     * Gravatar from email.
      *
      */
     public function init()
@@ -34,19 +31,18 @@ class Gravatar
      *
      * @return array
      */
-    public function get($email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array())
+    public function get($email)
     {
         $url = $this->url;
 
+        $s = 80;
+        $d = 'mp';
+        $r = 'g';
+        // $image = false;
+        // $atts = array();
+
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$s&d=$d&r=$r";
-        if ($img) {
-            $url = '<img src="' . $url . '"';
-            foreach ($atts as $key => $val) {
-                $url .= ' ' . $key . '="' . $val . '"';
-            }
-            $url .= ' />';
-        }
         return $url;
     }
 }

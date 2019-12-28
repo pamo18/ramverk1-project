@@ -21,8 +21,8 @@ class DeleteCommentForm extends FormModel
     {
         parent::__construct($di);
         $comment = $this->getItemDetails($type, $commentId);
-        $this->di->game->validUser($comment->user);
-        $this->returnQuestion = $comment->questionid;
+
+        $this->questionid = $comment->questionid;
 
         $this->form->create(
             [
@@ -54,9 +54,9 @@ class DeleteCommentForm extends FormModel
                 ],
 
                 "cancel" => [
-                    "type"      => "submit",
-                    "value"     => "Cancel",
-                    "callback" => [$this, "callbackSuccess"]
+                    "type" => "button",
+                    "value" => "Cancel",
+                    "onclick" => "location.href='$this->questionid';"
                 ],
             ]
         );
@@ -106,7 +106,7 @@ class DeleteCommentForm extends FormModel
      */
     public function callbackSuccess()
     {
-        $this->di->get("response")->redirect("game/question/$this->returnQuestion")->send();
+        $this->di->get("response")->redirect("game/question/$this->questionid")->send();
     }
 
 

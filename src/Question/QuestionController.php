@@ -4,7 +4,6 @@ namespace Pamo\Question;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Pamo\Question\HTMLForm\CreateQuestionForm;
 
 /**
  * Question controller.
@@ -93,7 +92,7 @@ class QuestionController implements ContainerInjectableInterface
      */
     public function createAction() : object
     {
-        $form = new CreateQuestionForm($this->di);
+        $form = $this->game->getQuestionForm("create");
         $form->check();
 
         $this->page->add($this->base . "/crud/create", [
@@ -126,7 +125,7 @@ class QuestionController implements ContainerInjectableInterface
 
         $question->save();
 
-        $this->di->get("response")->redirect("game/question/$id")->send();
+        return $this->di->get("response")->redirect("game/question/$id")->send();
     }
 
 
@@ -150,7 +149,7 @@ class QuestionController implements ContainerInjectableInterface
 
         $question->save();
 
-        $this->di->get("response")->redirect("game/question/$id")->send();
+        return $this->di->get("response")->redirect("game/question/$id")->send();
     }
 
 

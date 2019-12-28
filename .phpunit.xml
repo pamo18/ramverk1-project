@@ -5,14 +5,18 @@
     <testsuites>
         <testsuite name="all">
             <directory>test</directory>
-            <!-- <exclude>./test/Controller/GameControllerTest.php</exclude>
-            <exclude>./test/Controller/UserControllerTest.php</exclude> -->
+            <!-- <exclude>./test/Controller/StartControllerTest.php</exclude> -->
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
+            <exclude>
+                <directory>src/Controller</directory>
+                <directory>src/StyleChooser</directory>
+                <directory>src/Navigation</directory>
+            </exclude>
         </whitelist>
     </filter>
 

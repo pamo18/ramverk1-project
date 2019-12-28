@@ -21,8 +21,7 @@ class UpdateAnswerForm extends FormModel
     {
         parent::__construct($di);
         $answer = $this->getItemDetails($id);
-        $this->di->game->validUser($answer->user);
-        $this->questionId = $answer->questionid;
+        $this->questionid = $answer->questionid;
 
         $this->form->create(
             [
@@ -55,9 +54,9 @@ class UpdateAnswerForm extends FormModel
                 ],
 
                 "cancel" => [
-                    "type" => "submit",
+                    "type" => "button",
                     "value" => "Cancel",
-                    "callback" => [$this, "callbackSuccess"],
+                    "onclick" => "location.href='$this->questionid';"
                 ],
             ]
         );
@@ -101,40 +100,13 @@ class UpdateAnswerForm extends FormModel
 
 
     /**
-     * Callback for submit-button which should return true if it could
-     * carry out its work and false if something failed.
-     *
-     * @return bool true if okey, false if something went wrong.
-     */
-    public function vote($id, $vote) : bool
-    {
-        $answer = new Answer();
-        $answer->setDb($this->di->get("dbqb"));
-        $answer->find("id", $id);
-
-        if ($vote === "up") {
-            $answer->vote += 1;
-        } else if ($vote === "down") {
-            $answer->vote -= 1;
-        } else {
-            $answer->vote = $answer->vote;
-        }
-
-        $answer->save();
-
-        $this->di->get("response")->redirect("game/question/$answer->questionid")->send();
-    }
-
-
-
-    /**
      * Callback what to do if the form was successfully submitted, this
      * happen when the submit callback method returns true. This method
      * can/should be implemented by the subclass for a different behaviour.
      */
     public function callbackSuccess()
     {
-        $this->di->get("response")->redirect("game/question/$this->questionId")->send();
+        $this->di->get("response")->redirect("game/question/$this->questionid")->send();
     }
 
 

@@ -131,8 +131,6 @@ class UpdateUserForm extends FormModel
             "email" => $user->email
         ]);
 
-        $this->username = $user->username;
-
         $this->form->addOutput("Profile updated!");
         return true;
     }
@@ -146,6 +144,6 @@ class UpdateUserForm extends FormModel
      */
     public function callbackSuccess()
     {
-        $this->di->get("response")->redirect("user/update/$this->username")->send();
+        $this->di->get("response")->redirect("user/update")->send();
     }
 }

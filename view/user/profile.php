@@ -22,10 +22,10 @@ endif;
 
 <div class="flex-row flex-align-middle">
     <p class="button-link">
-        <a class="button" href="<?= url("user/update/$user->username") ?>">Edit Profile</a>
+        <a class="button" href="<?= url("user/update") ?>">Edit Profile</a>
     </p>
 
     <p class="button-link">
-        <a class="button" href="<?= url("user/delete/$user->username") ?>">Delete account</a>
+        <a class="button" href="<?= url("user/delete") ?>">Delete account</a>
     </p>
 </div>

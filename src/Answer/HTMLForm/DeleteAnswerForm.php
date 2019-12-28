@@ -20,8 +20,7 @@ class DeleteAnswerForm extends FormModel
     {
         parent::__construct($di);
         $answer = $this->getItemDetails($id);
-        $this->di->game->validUser($answer->user);
-        $this->questionId = $answer->questionid;
+        $this->questionid = $answer->questionid;
 
         $this->form->create(
             [
@@ -48,9 +47,9 @@ class DeleteAnswerForm extends FormModel
                 ],
 
                 "cancel" => [
-                    "type" => "submit",
+                    "type" => "button",
                     "value" => "Cancel",
-                    "callback" => [$this, "callbackSuccess"]
+                    "onclick" => "location.href='$this->questionid';"
                 ],
             ]
         );
@@ -121,7 +120,7 @@ class DeleteAnswerForm extends FormModel
      */
     public function callbackSuccess()
     {
-        $this->di->get("response")->redirect("game/question/$this->questionId")->send();
+        $this->di->get("response")->redirect("game/question/$this->questionid")->send();
     }
 
 

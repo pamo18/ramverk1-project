@@ -27,17 +27,13 @@ class GameTag
      * @param string $apiKey for authentication.
      *
      */
-    public function init($baseAddress = null)
+    public function init()
     {
         $this->multiCurl = new MultiCurl();
 
-        if ($baseAddress) {
-            $this->baseAddress = $baseAddress;
-        } else {
-            $filename = ANAX_INSTALL_PATH . "/config/api.php";
-            $api =  file_exists($filename) ? require $filename : null;
-            $this->baseAddress = $api ? $api["url"]["rawg"] : getenv("API_URL_RAWG");
-        }
+        $filename = ANAX_INSTALL_PATH . "/config/api.php";
+        $api =  file_exists($filename) ? require $filename : null;
+        $this->baseAddress = $api ? $api["url"]["rawg"] : getenv("API_URL_RAWG");
     }
 
 
@@ -59,7 +55,12 @@ class GameTag
         ];
 
         $data = $this->multiCurl->get($url, $header);
-        $result = $this->build($data);
+
+        if ($data && !empty($data[0]["results"])) {
+            $buildData = $this->build($data[0]);
+        }
+
+        $result = isset($buildData) ? $buildData : [];
 
         return $result;
     }
@@ -75,32 +76,25 @@ class GameTag
      */
     private function build(array $data) : array
     {
-        if (!$data || isset($data["results"])) {
-            return null;
-        }
-
-        $data = $data[0];
-
         $buildData = [
             "next" => isset($data["next"]) ? $data["next"] : null,
             "previous" => isset($data["previous"]) ? $data["previous"] : null,
             "results" => []
         ];
 
-        if ($data["results"]) {
-            foreach ($data["results"] as $row) {
-                $result = [
-                    "name" => empty($row["name"]) ? null: $row["name"],
-                    "parents" => empty($row["parent_platforms"]) ? null : $row["parent_platforms"],
-                    "platforms" => empty($row["platforms"]) ? null : $row["platforms"],
-                    "released" => empty($row["released"]) ? null : $row["released"],
-                    "image" => empty($row["background_image"]) ? null : $row["background_image"],
-                    "video" => empty($row["clip"]["clip"]) ? null : $row["clip"]["clip"],
-                    "genres" => empty($row["genres"]) ? null : $row["genres"]
-                ];
-                array_push($buildData["results"], $result);
-            }
+        foreach ($data["results"] as $row) {
+            $result = [
+                "name" => empty($row["name"]) ? null: $row["name"],
+                "parents" => empty($row["parent_platforms"]) ? null : $row["parent_platforms"],
+                "platforms" => empty($row["platforms"]) ? null : $row["platforms"],
+                "released" => empty($row["released"]) ? null : $row["released"],
+                "image" => empty($row["background_image"]) ? null : $row["background_image"],
+                "video" => empty($row["clip"]["clip"]) ? null : $row["clip"]["clip"],
+                "genres" => empty($row["genres"]) ? null : $row["genres"]
+            ];
+            array_push($buildData["results"], $result);
         }
+
         return $buildData;
     }
 }

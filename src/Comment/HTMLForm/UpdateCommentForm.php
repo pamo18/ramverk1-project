@@ -22,8 +22,8 @@ class UpdateCommentForm extends FormModel
     {
         parent::__construct($di);
         $comment = $this->getItemDetails($type, $commentId);
-        $this->di->game->validUser($comment->user);
-        $this->returnQuestion = $comment->questionid;
+
+        $this->questionid = $comment->questionid;
 
         $this->form->create(
             [
@@ -54,9 +54,9 @@ class UpdateCommentForm extends FormModel
                 ],
 
                 "cancel" => [
-                    "type"      => "submit",
-                    "value"     => "Cancel",
-                    "callback" => [$this, "callbackSuccess"]
+                    "type" => "button",
+                    "value" => "Cancel",
+                    "onclick" => "location.href='$this->questionid';"
                 ],
             ]
         );
@@ -107,19 +107,19 @@ class UpdateCommentForm extends FormModel
      */
     public function callbackSuccess()
     {
-        $this->di->get("response")->redirect("game/question/$this->returnQuestion")->send();
+        $this->di->get("response")->redirect("game/question/$this->questionid")->send();
     }
 
 
 
-    /**
-     * Callback what to do if the form was unsuccessfully submitted, this
-     * happen when the submit callback method returns false or if validation
-     * fails. This method can/should be implemented by the subclass for a
-     * different behaviour.
-     */
-    public function callbackFail()
-    {
-        $this->di->get("response")->redirectSelf()->send();
-    }
+    // /**
+    //  * Callback what to do if the form was unsuccessfully submitted, this
+    //  * happen when the submit callback method returns false or if validation
+    //  * fails. This method can/should be implemented by the subclass for a
+    //  * different behaviour.
+    //  */
+    // public function callbackFail()
+    // {
+    //     $this->di->get("response")->redirectSelf()->send();
+    // }
 }

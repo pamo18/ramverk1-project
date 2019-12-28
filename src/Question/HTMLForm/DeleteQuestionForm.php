@@ -21,7 +21,6 @@ class DeleteQuestionForm extends FormModel
         parent::__construct($di);
         $question = $this->getItemDetails($id);
         $this->questionid = $question->id;
-        $this->di->game->validUser($question->user);
 
         $this->form->create(
             [
@@ -55,9 +54,9 @@ class DeleteQuestionForm extends FormModel
                 ],
 
                 "cancel" => [
-                    "type" => "submit",
+                    "type" => "button",
                     "value" => "Cancel",
-                    "callback" => [$this, "callbackFail"]
+                    "onclick" => "location.href='$this->questionid';"
                 ],
             ]
         );
@@ -194,14 +193,14 @@ class DeleteQuestionForm extends FormModel
 
 
 
-    /**
-     * Callback what to do if the form was unsuccessfully submitted, this
-     * happen when the submit callback method returns false or if validation
-     * fails. This method can/should be implemented by the subclass for a
-     * different behaviour.
-     */
-    public function callbackFail()
-    {
-        $this->di->get("response")->redirect("game/question/$this->questionid")->send();
-    }
+    // /**
+    //  * Callback what to do if the form was unsuccessfully submitted, this
+    //  * happen when the submit callback method returns false or if validation
+    //  * fails. This method can/should be implemented by the subclass for a
+    //  * different behaviour.
+    //  */
+    // public function callbackFail()
+    // {
+    //     $this->di->get("response")->redirect("game/question/$this->questionid")->send();
+    // }
 }

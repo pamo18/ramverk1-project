@@ -22,7 +22,6 @@ class UpdateQuestionForm extends FormModel
         parent::__construct($di);
         $this->questionid = $id;
         $question = $this->getItemDetails($id);
-        $this->di->game->validUser($question->user);
 
         $this->form->create(
             [
@@ -64,9 +63,9 @@ class UpdateQuestionForm extends FormModel
                 ],
 
                 "cancel" => [
-                    "type" => "submit",
+                    "type" => "button",
                     "value" => "Cancel",
-                    "callback" => [$this, "callbackSuccess"],
+                    "onclick" => "location.href='$this->questionid';"
                 ],
             ]
         );

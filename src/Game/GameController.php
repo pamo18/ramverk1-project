@@ -63,23 +63,35 @@ class GameController implements ContainerInjectableInterface
             $request = $this->di->get("request");
             $admin = $request->getGet("admin", null);
             $adminType = $request->getGet("adminType", null);
+            $adminId = $request->getGet("adminId", null);
 
             $answerForm = $this->game->getAnswerForm("create", $questionId);
             $answerForm->check();
 
             switch ($admin) {
                 case "question":
+                    if ($adminType === "create") {
+                        return $this->di->get("response")->redirect("question/create")->send();
+                    }
+                    $owner = $this->game->question->findById($questionId)->user;
                     $adminForm = $this->game->getQuestionForm($adminType, $questionId);
                     break;
                 case "answer":
+                    $owner = $this->game->answer->findById($adminId)->user;
                     $adminForm = $this->game->getAnswerForm($adminType, $questionId);
                     break;
                 case "comment-question":
+                    $owner = $this->game->commentAnswer->findById($adminId)->user;
                     $adminForm = $this->game->getCommentForm($adminType, $questionId, "question");
                     break;
                 case "comment-answer":
+                    $owner = $this->game->commentQuestion->findById($adminId)->user;
                     $adminForm = $this->game->getCommentForm($adminType, $questionId, "answer");
                     break;
+            }
+
+            if (isset($owner) && !$this->game->validUser($owner)) {
+                return $this->di->get("response")->redirect("user/invalid")->send();
             }
 
             if (isset($adminForm)) {

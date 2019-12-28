@@ -3,8 +3,6 @@
 namespace Pamo\User;
 
 use Anax\DI\DIFactoryConfig;
-use Pamo\User\HTMLForm\CreateUserForm;
-use Pamo\User\HTMLForm\UserLoginForm;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -40,9 +38,9 @@ class UserControllerTest extends TestCase
         $this->controller = new UserController();
         $this->controller->setDI($this->di);
         $this->controller->initialize();
-        $session = $di->get("session");
-        $session->start();
-        $session->set("testdb", true);
+        $this->session = $di->get("session");
+        $this->session->start();
+        $this->session->set("testdb", true);
     }
 
 
@@ -52,6 +50,9 @@ class UserControllerTest extends TestCase
      */
     public function testIndexActionGet()
     {
+        chdir(ANAX_INSTALL_PATH);
+        shell_exec("bash reset_testdb.bash");
+
         $res = $this->controller->indexActionGet();
         $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);
@@ -65,21 +66,17 @@ class UserControllerTest extends TestCase
      */
     public function testCreateAction()
     {
-        $res = $this->controller->createAction();
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-
-        $_SERVER["REQUEST_METHOD"] = "POST";
-
         $this->di->request->setGlobals([
             "post" => [
                 "anax/htmlform-id" => "Pamo\User\HTMLForm\CreateUserForm",
-                "username" => "test1",
+                "username" => "username",
                 "email" => "test@mail.com",
                 "password" => "test",
                 "repeat-password" => "test",
                 "submit" => "Create user"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
             ]
         ]);
 
@@ -91,11 +88,14 @@ class UserControllerTest extends TestCase
         $this->di->request->setGlobals([
             "post" => [
                 "anax/htmlform-id" => "Pamo\User\HTMLForm\CreateUserForm",
-                "username" => "test2",
+                "username" => "username2",
                 "email" => "test@mail.com",
                 "password" => "no",
                 "repeat-password" => "match",
                 "submit" => "Create user"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
             ]
         ]);
 
@@ -112,19 +112,15 @@ class UserControllerTest extends TestCase
      */
     public function testLoginAction()
     {
-        $res = $this->controller->loginAction();
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-
-        $_SERVER["REQUEST_METHOD"] = "POST";
-
         $this->di->request->setGlobals([
             "post" => [
                 "anax/htmlform-id" => "Pamo\User\HTMLForm\UserLoginForm",
-                "username" => "test1",
+                "username" => "username",
                 "password" => "test",
                 "submit" => "Login"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
             ]
         ]);
 
@@ -139,10 +135,255 @@ class UserControllerTest extends TestCase
                 "username" => "test1",
                 "password" => "wrong",
                 "submit" => "Login"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
             ]
         ]);
 
         $res = $this->controller->loginAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
+
+
+
+    /**
+     * Test the route "update".
+     */
+    public function testUpdateAction()
+    {
+        $this->session->set("user", null);
+
+        $this->di->request->setGlobals([
+            "post" => [
+                "anax/htmlform-id" => "Pamo\User\HTMLForm\UpdateUserForm",
+                "id" => 2,
+                "username" => "username",
+                "email" => "test@mail.com",
+                "old-password" => "test",
+                "new-password" => "test",
+                "repeat-new-password" => "test",
+                "submit" => "Save"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
+            ]
+        ]);
+
+        $res = $this->controller->updateAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "username",
+            "email" => "doe@mail.com"
+        ]);
+
+        $this->di->request->setGlobals([
+            "post" => [
+                "anax/htmlform-id" => "Pamo\User\HTMLForm\UpdateUserForm",
+                "id" => 2,
+                "username" => "username",
+                "email" => "test@mail.com",
+                "old-password" => "wrong",
+                "new-password" => "test",
+                "repeat-new-password" => "test",
+                "submit" => "Save"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
+            ]
+        ]);
+
+        $res = $this->controller->updateAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->di->request->setGlobals([
+            "post" => [
+                "anax/htmlform-id" => "Pamo\User\HTMLForm\UpdateUserForm",
+                "id" => 2,
+                "username" => "username",
+                "email" => "test@mail.com",
+                "old-password" => "test",
+                "new-password" => "test",
+                "repeat-new-password" => "wrong",
+                "submit" => "Save"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
+            ]
+        ]);
+
+        $res = $this->controller->updateAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->di->request->setGlobals([
+            "post" => [
+                "anax/htmlform-id" => "Pamo\User\HTMLForm\UpdateUserForm",
+                "id" => 2,
+                "username" => "username",
+                "email" => "test@mail.com",
+                "old-password" => "test",
+                "new-password" => "test",
+                "repeat-new-password" => "test",
+                "submit" => "Save"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
+            ]
+        ]);
+
+        $res = $this->controller->updateAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
+
+
+
+    /**
+     * Test the route "delete".
+     */
+    public function testDeleteAction()
+    {
+        $this->session->set("user", null);
+
+        $this->di->request->setGlobals([
+            "post" => [
+                "anax/htmlform-id" => "Pamo\User\HTMLForm\DeleteUserForm",
+                "id" => 2,
+                "password" => "test",
+                "submit" => "Delete Account"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
+            ]
+        ]);
+
+        $res = $this->controller->deleteAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "username",
+            "email" => "doe@mail.com"
+        ]);
+
+        $this->di->request->setGlobals([
+            "post" => [
+                "anax/htmlform-id" => "Pamo\User\HTMLForm\DeleteUserForm",
+                "id" => 2,
+                "password" => "wrong",
+                "submit" => "Delete Account"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
+            ]
+        ]);
+
+        $res = $this->controller->deleteAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->di->request->setGlobals([
+            "post" => [
+                "anax/htmlform-id" => "Pamo\User\HTMLForm\DeleteUserForm",
+                "id" => 2,
+                "password" => "test",
+                "submit" => "Delete Account"
+            ],
+            "server" => [
+                "REQUEST_METHOD" => "POST"
+            ]
+        ]);
+
+        $res = $this->controller->deleteAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
+
+
+
+    /**
+     * Test the route "invalid".
+     */
+    public function testInvalidAction()
+    {
+        $res = $this->controller->invalidAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
+
+
+
+    /**
+     * Test the route "ineligible".
+     */
+    public function testIneligibleAction()
+    {
+        $res = $this->controller->ineligibleAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
+
+
+
+    /**
+     * Test the route "profile".
+     */
+    public function testProfileAction()
+    {
+        $this->session->set("user", null);
+
+        $res = $this->controller->profileAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "doe",
+            "email" => "doe@mail.com"
+        ]);
+
+        $res = $this->controller->profileAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
+
+
+
+    /**
+     * Test the route "activity".
+     */
+    public function testActivityAction()
+    {
+        $res = $this->controller->activityAction("doe");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
+
+
+
+    /**
+     * Test the route "logout".
+     */
+    public function testLogoutAction()
+    {
+        $res = $this->controller->logoutAction();
         $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);

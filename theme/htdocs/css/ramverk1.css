@@ -6026,7 +6026,8 @@ table.results-table tr:hover:not(.first) {
  *-----------------------------------------*/
 .button,
 .htmlform input[type="submit"],
-.htmlform input[type="reset"] {
+.htmlform input[type="reset"],
+.htmlform input[type="button"] {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   box-sizing: border-box;

@@ -21,7 +21,7 @@ class CreateCommentForm extends FormModel
     {
         parent::__construct($di);
         $this->user = $di->get("session")->get("user", null);
-        $this->returnQuestion = $questionid;
+        $this->questionid = $questionid;
         $this->form->create(
             [
                 "id" => __CLASS__,
@@ -60,9 +60,9 @@ class CreateCommentForm extends FormModel
                 ],
 
                 "cancel" => [
-                    "type"      => "submit",
-                    "value"     => "Cancel",
-                    "callback" => [$this, "callbackSuccess"]
+                    "type" => "button",
+                    "value" => "Cancel",
+                    "onclick" => "location.href='$this->questionid';"
                 ],
             ]
         );
@@ -107,7 +107,7 @@ class CreateCommentForm extends FormModel
      */
     public function callbackSuccess()
     {
-        $this->di->get("response")->redirect("game/question/$this->returnQuestion")->send();
+        $this->di->get("response")->redirect("game/question/$this->questionid")->send();
     }
 
 

@@ -75,10 +75,10 @@ class CreateQuestionForm extends FormModel
         $question->vote = 0;
         $question->save();
 
+        $tags = $this->form->value("tags");
 
-        $questionTag = explode(",", $this->form->value("tags"));
-
-        if ($questionTag) {
+        if ($tags) {
+            $questionTag = explode(",", $tags);
             foreach ($questionTag as $formTag) {
                 $this->addTag($formTag, $question->id);
             }

@@ -5,9 +5,6 @@ namespace Pamo\User;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Pamo\User\HTMLForm\UserLoginForm;
-use Pamo\User\HTMLForm\CreateUserForm;
-use Pamo\User\HTMLForm\UpdateUserForm;
-use Pamo\User\HTMLForm\DeleteUserForm;
 
 /**
  * User controller.
@@ -207,7 +204,7 @@ class UserController implements ContainerInjectableInterface
      */
     public function createAction() : object
     {
-        $form = new CreateUserForm($this->di);
+        $form = $this->game->getUserForm("create");
         $form->check();
 
         $this->page->add("block/header", [
@@ -230,14 +227,15 @@ class UserController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function updateAction($username) : object
+    public function updateAction() : object
     {
-        $invalidUser = $this->game->validUser($username);
-        if ($invalidUser) {
-            return $invalidUser;
+        if (!$this->game->activeUser()) {
+            return $this->di->get("response")->redirect("user/login");
         }
 
-        $form = new UpdateUserForm($this->di, $username);
+        $username = $this->game->activeUser("username");
+
+        $form = $this->game->getUserForm("edit", $username);
         $form->check();
 
         $this->page->add("block/header", [
@@ -260,14 +258,15 @@ class UserController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function deleteAction($username) : object
+    public function deleteAction() : object
     {
-        $invalidUser = $this->game->validUser($username);
-        if ($invalidUser) {
-            return $invalidUser;
+        if (!$this->game->activeUser()) {
+            return $this->di->get("response")->redirect("user/login");
         }
 
-        $form = new DeleteUserForm($this->di, $username);
+        $username = $this->game->activeUser("username");
+
+        $form = $this->game->getUserForm("delete", $username);
         $form->check();
 
         $this->page->add("block/header", [
@@ -294,7 +293,7 @@ class UserController implements ContainerInjectableInterface
     {
         $this->di->get("session")->set("user", null);
 
-        $this->di->get("response")->redirect("user/login")->send();
+        return $this->di->get("response")->redirect("user/login")->send();
     }
 
     /**

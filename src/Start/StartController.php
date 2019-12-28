@@ -43,12 +43,12 @@ class StartController implements ContainerInjectableInterface
 
         $data = [
             "title" => $this->title,
-            "question" => $this->game->question->findAllOrder("created DESC", 3),
-            "tags" => $this->game->tagQuestion->findAllGroupOrder($sql, "tagname", "cnt DESC", 3),
-            "users" => $this->game->user->findAllOrder("rank DESC", 3),
             "questionCount" => $this->game->question->count()->count,
             "tagCount" => $this->game->tag->count()->count,
             "userCount" => $this->game->user->count()->count,
+            "question" => $this->game->question->findAllOrder("created DESC", 3),
+            "tags" => $this->game->tagQuestion->findAllGroupOrder($sql, "tagname", "cnt DESC", 3),
+            "users" => $this->game->user->findAllOrder("rank DESC", 3),
             "gravatar" => $this->game->gravatar
         ];
 

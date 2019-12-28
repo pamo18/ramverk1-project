@@ -11,10 +11,13 @@ use Pamo\Answer\HTMLForm\UpdateAnswerForm;
 use Pamo\Comment\HTMLForm\CreateCommentForm;
 use Pamo\Comment\HTMLForm\DeleteCommentForm;
 use Pamo\Comment\HTMLForm\UpdateCommentForm;
+use Pamo\User\HTMLForm\CreateUserForm;
+use Pamo\User\HTMLForm\UpdateUserForm;
+use Pamo\User\HTMLForm\DeleteUserForm;
 
 /**
  * Game
- * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Game
 {
@@ -155,12 +158,37 @@ class Game
             case $rank <= 30:
                 $value = 30;
                 break;
+            default:
+                $value = 50;
         }
 
         $user = $this->user;
         $user->find("username", $username);
         $user->rank += $value;
         $user->save();
+    }
+
+
+
+    /**
+     * Return question form
+     *
+     * @return object
+     */
+    public function getUserForm($adminType, $username = null)
+    {
+        switch ($adminType) {
+            case "create":
+                $userForm = new CreateUserForm($this->di);
+                break;
+            case "edit":
+                $userForm = new UpdateUserForm($this->di, $username);
+                break;
+            case "delete":
+                $userForm = new DeleteUserForm($this->di, $username);
+                break;
+        }
+        return isset($userForm) ? $userForm : null;
     }
 
 
@@ -305,13 +333,14 @@ class Game
     /**
      * Is the logged in user the content owner.
      *
-     * @return null
+     * @return bool
      */
     public function validUser($username)
     {
         if ($this->activeUser("username") != $username) {
-            $this->di->get("response")->redirect("user/invalid")->send();
+            return false;
         }
+        return true;
     }
 
 
