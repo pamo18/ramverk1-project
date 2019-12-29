@@ -25,6 +25,7 @@ jobs:
                     - v1-dependencies-
 
             #- run: composer install -n --prefer-dist
+            - run: apt-get install sqlite3
             - run: bash reset_testdb.bash
             - run: make install
 
