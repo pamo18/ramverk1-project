@@ -17,6 +17,7 @@ matrix:
         - php: hhvm
 
 before_script:
+    - bash reset_testdb.bash
     - make install
 
 script:
