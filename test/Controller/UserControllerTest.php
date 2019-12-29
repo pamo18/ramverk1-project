@@ -54,7 +54,7 @@ class UserControllerTest extends TestCase
     public function testIndexActionGet()
     {
         chdir(ANAX_INSTALL_PATH);
-        shell_exec("bash reset_testdb.bash");
+        shell_exec("bash script/reset_testdb.bash");
 
         $res = $this->controller->indexActionGet();
         $this->assertIsObject($res);

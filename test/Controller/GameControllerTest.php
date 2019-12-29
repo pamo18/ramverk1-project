@@ -183,7 +183,7 @@ class GameControllerTest extends TestCase
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
         chdir(ANAX_INSTALL_PATH);
-        shell_exec("bash reset_testdb.bash");
+        shell_exec("bash script/reset_testdb.bash");
     }
 
 
@@ -263,7 +263,7 @@ class GameControllerTest extends TestCase
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
         chdir(ANAX_INSTALL_PATH);
-        shell_exec("bash reset_testdb.bash");
+        shell_exec("bash script/reset_testdb.bash");
     }
 
 
@@ -346,7 +346,7 @@ class GameControllerTest extends TestCase
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
         chdir(ANAX_INSTALL_PATH);
-        shell_exec("bash reset_testdb.bash");
+        shell_exec("bash script/reset_testdb.bash");
     }
 
 
@@ -429,7 +429,7 @@ class GameControllerTest extends TestCase
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
         chdir(ANAX_INSTALL_PATH);
-        shell_exec("bash reset_testdb.bash");
+        shell_exec("bash script/reset_testdb.bash");
     }
 
 
