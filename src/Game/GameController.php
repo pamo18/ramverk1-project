@@ -7,6 +7,7 @@ use Anax\Commons\ContainerInjectableTrait;
 
 /**
  * Game controller
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  */
 class GameController implements ContainerInjectableInterface
 {

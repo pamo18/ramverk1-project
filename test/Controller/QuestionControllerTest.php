@@ -34,9 +34,10 @@ class QuestionControllerTest extends TestCase
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
 
-        // Setup the controller
-        $this->controller = new QuestionController();
-        $this->controller->setDI($this->di);
+        // Setup the enviroment
+        $this->session = $di->get("session");
+        $this->session->start();
+        $this->session->set("testdb", true);
 
         $this->di->get("request")->setGlobals([
             "get" => [
@@ -45,10 +46,10 @@ class QuestionControllerTest extends TestCase
             ]
         ]);
 
+        // Setup the controller
+        $this->controller = new QuestionController();
+        $this->controller->setDI($this->di);
         $this->controller->initialize();
-        $this->session = $di->get("session");
-        $this->session->start();
-        $this->session->set("testdb", true);
     }
 
 

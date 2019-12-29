@@ -2,7 +2,7 @@
 # shellcheck disable=SC2181
 
 #
-# Load a SQL file into skolan
+# Load a SQL file into db
 #
 sqlite3 data/db.sqlite < sql/ddl/question.sql
 sqlite3 data/db.sqlite < sql/ddl/answer.sql

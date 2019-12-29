@@ -34,9 +34,10 @@ class GameControllerTest extends TestCase
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
 
-        // Setup the controller
-        $this->controller = new GameController();
-        $this->controller->setDI($this->di);
+        // Setup the enviroment
+        $this->session = $di->get("session");
+        $this->session->start();
+        $this->session->set("testdb", true);
 
         $this->di->get("request")->setGlobals([
             "get" => [
@@ -45,15 +46,10 @@ class GameControllerTest extends TestCase
             ]
         ]);
 
+        // Setup the controller
+        $this->controller = new GameController();
+        $this->controller->setDI($this->di);
         $this->controller->initialize();
-        $this->session = $di->get("session");
-        $this->session->start();
-        $this->session->set("testdb", true);
-
-        $this->session->set("user", [
-            "username" => "doe",
-            "email" => "doe@mail.com"
-        ]);
     }
 
 
@@ -63,17 +59,42 @@ class GameControllerTest extends TestCase
      */
     public function testVoteAction()
     {
-        $res = $this->controller->voteAction("question", 1, "down");
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+        $this->session->set("user", [
+            "username" => "doe",
+            "email" => "doe@mail.com"
+        ]);
+
+        $game = $this->di->game;
+        $game->updateRank("doe", 5);
+
+        $game = $this->di->game;
+        $game->updateRank("doe", 10);
+
+        $game = $this->di->game;
+        $game->updateRank("doe", 20);
+
+        $game = $this->di->game;
+        $game->updateRank("doe", 30);
+
+        $game = $this->di->game;
+        $game->updateRank("doe", 40);
 
         $res = $this->controller->voteAction("question", 1, "up");
         $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
-        $res = $this->controller->voteAction("answer", 2, "down");
+        $res = $this->controller->voteAction("question", 4, "down");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $res = $this->controller->voteAction("question", 4, "up");
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $res = $this->controller->voteAction("answer", 1, "down");
         $this->assertIsObject($res);
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
@@ -88,27 +109,10 @@ class GameControllerTest extends TestCase
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
-        $game = $this->di->game;
-        $game->updateRank("doe", 5);
-
-        $game = $this->di->game;
-        $game->updateRank("doe", 10);
-
-        $game = $this->di->game;
-        $game->updateRank("doe", 20);
-
-        $game = $this->di->game;
-        $game->updateRank("doe", 30);
-
         $this->session->set("user", [
             "username" => "user",
             "email" => "doe@mail.com"
         ]);
-
-        $res = $this->controller->voteAction("question", 1, "up");
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
         $res = $this->controller->voteAction("question", 1, "");
         $this->assertIsObject($res);

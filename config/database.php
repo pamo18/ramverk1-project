@@ -12,7 +12,7 @@
  *  "dsn" => "sqlite:memory::",
  *
  */
-if (isset($_SESSION["testdb"]) && $_SESSION["testdb"]) {
+if (isset($_SESSION["testdb"])) {
     return [
         "dsn"              => "sqlite:" . ANAX_INSTALL_PATH . "/data/db_test.sqlite",
         "username"         => null,
@@ -29,21 +29,21 @@ if (isset($_SESSION["testdb"]) && $_SESSION["testdb"]) {
         // True to be verbose on connection failed
         "debug_connect"   => false,
     ];
-} else {
-    return [
-        "dsn"              => "sqlite:" . ANAX_INSTALL_PATH . "/data/db.sqlite",
-        "username"         => null,
-        "password"         => null,
-        "driver_options"   => null,
-        "fetch_mode"       => \PDO::FETCH_OBJ,
-        "table_prefix"     => null,
-        "session_key"      => "Anax\Database",
-        "emulate_prepares" => false,
-
-        // True to be very verbose during development
-        "verbose"         => null,
-
-        // True to be verbose on connection failed
-        "debug_connect"   => false,
-    ];
 }
+
+return [
+    "dsn"              => "sqlite:" . ANAX_INSTALL_PATH . "/data/db.sqlite",
+    "username"         => null,
+    "password"         => null,
+    "driver_options"   => null,
+    "fetch_mode"       => \PDO::FETCH_OBJ,
+    "table_prefix"     => null,
+    "session_key"      => "Anax\Database",
+    "emulate_prepares" => false,
+
+    // True to be very verbose during development
+    "verbose"         => null,
+
+    // True to be verbose on connection failed
+    "debug_connect"   => false,
+];

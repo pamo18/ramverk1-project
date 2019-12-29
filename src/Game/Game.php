@@ -138,7 +138,7 @@ class Game
     /**
      * Rank
      *
-     * @return object
+     * @return null
      */
     public function updateRank($username, $rank)
     {

@@ -35,13 +35,15 @@ class TagControllerTest extends TestCase
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
 
+        // Setup the enviroment
+        $this->session = $di->get("session");
+        $this->session->start();
+        $this->session->set("testdb", true);
+
         // Setup the controller
         $this->controller = new TagController();
         $this->controller->setDI($this->di);
         $this->controller->initialize();
-        $this->session = $di->get("session");
-        $this->session->start();
-        $this->session->set("testdb", true);
     }
 
 
