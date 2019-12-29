@@ -3,7 +3,7 @@ jobs:
     build:
         docker:
             # specify the version you desire here
-            #- image: circleci/php:7.1.5-browsers
+            #- image: circleci/php:7.2-browsers
             - image: anax/dev
 
             # Specify service dependencies here if necessary
@@ -35,11 +35,7 @@ jobs:
             - run: make check
             - run: make test
 
-
-
-# notify:
-#     webhooks:
-#         # canax
-#         - url: https://webhooks.gitter.im/e/c8ff44f50de935adf880
-#         # canax/commons
-#         - url: https://webhooks.gitter.im/e/7a5e4ea6070af520503c
+notify:
+    webhooks:
+        # ramverk1-projekt
+        - url: https://webhooks.gitter.im/e/8be2af28e1c1636efadf
