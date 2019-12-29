@@ -25,6 +25,7 @@ jobs:
                     - v1-dependencies-
 
             #- run: composer install -n --prefer-dist
+            - run: bash reset_testdb.bash
             - run: make install
 
             - save_cache:
