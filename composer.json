@@ -1,15 +1,28 @@
 {
-    "name" : "anax/noname",
+    "name": "pamo18/ramverk1-projekt",
     "description": "Projekt page for the ramverk1 course.",
+    "keywords": ["boilerplate", "framework", "mvc", "micro", "education"],
+    "homepage": "http://www.student.bth.se/~pamo18/dbwebb-kurser/ramverk1/me/kmom10/proj/htdocs/",
     "license": "MIT",
-    "minimum-stability": "beta",
-    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Paul Moreland",
+            "email": "paul.moreland@lidkoping.se",
+            "homepage": "http://www.student.bth.se/~pamo18/dbwebb-kurser/ramverk1/me/redovisa/htdocs/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/pamo18/ramverk1-weather/issues"
+    },
     "autoload": {
         "psr-4": {
             "Anax\\": "src/",
             "Pamo\\": "src/"
         }
     },
+    "minimum-stability": "beta",
+    "prefer-stable": true,
     "require": {
         "php": ">=7.2",
         "anax/anax-ramverk1-me": "^1.0.0",
