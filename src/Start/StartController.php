@@ -55,7 +55,9 @@ class StartController implements ContainerInjectableInterface
         $this->page->add("block/nav-admin", $this->game->getNav());
         $this->page->add($this->base . "/index", $data);
 
-        return $this->page->render();
+        return $this->page->render([
+            "title" => $this->title,
+        ]);
     }
 
 

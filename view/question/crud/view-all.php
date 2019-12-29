@@ -15,7 +15,7 @@ endif;
 
 <script type="text/javascript" src=<?= url("js/pamo.js") ?>></script>
 
-<div class="flex-column flex-align-middle results-box">
+<div class="flex-column flex-align-middle results-box buttons">
     <p>
         <a class="button <?= $activeSort == "created DESC" ? "active" : null ?>" href="<?= url("?sortQBy=created&sortQType=DESC") ?>">
             Sort By Newest <i class="fas fa-arrow-down"></i>

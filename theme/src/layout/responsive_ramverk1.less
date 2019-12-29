@@ -42,10 +42,6 @@
         width: 100%;
     }
 
-    figure img {
-        border-radius: 0;
-    }
-
     .pageNav {
         width: 100%;
         border-radius: 0;
@@ -55,26 +51,48 @@
         width: 80%;
     }
 
-    .geotag-columns {
-        display: block;
-    }
-
-    .geotag-column-1,
-    .geotag-column-2 {
-        margin: 0 auto;
-        width: 80%;
-    }
-
-    .geotag-column-2 {
-        margin-top: 24px;
-    }
-
     table.results-table {
         border: none;
     }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 780px) {
+    .user-header figure {
+        width: 100%;
+        text-align: center;
+    }
+
+    .results-box.buttons {
+        p {
+            width: 100%;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            border-radius: 0;
+            border-bottom: 2px solid black;
+        }
+    }
+
+    .button.wide-button {
+        font-size: 0.8rem;
+    }
+
+    table.results-table {
+        font-size: 0.7rem;
+
+        a {
+            font-size: 0.7rem;
+        }
+    }
+
+    .button.tag-button {
+        margin: 0;
+        margin-top: 1px;
+        margin-bottom: 1px;
+    }
+
     .footer-column {
         #desinax-vgrid.column(@columns);
     }
@@ -83,13 +101,5 @@
     .footer-column-2 {
         border-right: none;
         border-bottom: 1px solid black;
-    }
-
-    .test-ip {
-        float: none;
-    }
-
-    .test-ip-json {
-        float: none;
     }
 }

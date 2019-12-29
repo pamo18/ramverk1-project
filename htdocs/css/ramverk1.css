@@ -5165,7 +5165,7 @@ figure.figure-codepen {
   color: #28b1d4;
 }
 a {
-  color: #18299A;
+  color: #28b1d4;
   text-decoration: none;
 }
 .outer-wrap-footer,
@@ -5628,7 +5628,7 @@ hr::after {
 .region-header-col-3 {
   display: inline;
   float: left;
-  width: 48.95833333%;
+  width: 73.95833333%;
   margin-left: 0.52083333%;
   margin-right: 0.52083333%;
 }
@@ -5640,11 +5640,25 @@ hr::after {
   margin-right: 0.52083333%;
   text-align: center;
 }
+.region-header-col-3 {
+  display: inline;
+  float: left;
+  width: 23.95833333%;
+  margin-left: 0.52083333%;
+  margin-right: 0.52083333%;
+}
 .site-logo {
   display: none;
 }
 .site-logo-text {
   font-size: 3em;
+}
+.site-logo-text a:hover {
+  text-decoration: none;
+}
+.site-logo-text-icon img {
+  margin-top: 2px;
+  margin-left: 2px;
 }
 /**-----------------------------------------/
  * Flash image, under navbar
@@ -6043,6 +6057,9 @@ table.results-table tr:hover:not(.first) {
   border: none;
   cursor: pointer;
 }
+.form-answer input[type="submit"] {
+  width: 11rem;
+}
 .htmlform .buttonbar {
   text-align: center;
 }
@@ -6225,6 +6242,9 @@ input.check {
 .footer-column h4 {
   border: none;
 }
+.footer-column img {
+  border-radius: 10px;
+}
 .footer-column-1,
 .footer-column-2 {
   border-right: 2px solid black;
@@ -6297,9 +6317,6 @@ input.check {
   select[name="stylechooser"] {
     width: 100%;
   }
-  figure img {
-    border-radius: 0;
-  }
   .pageNav {
     width: 100%;
     border-radius: 0;
@@ -6307,22 +6324,38 @@ input.check {
   .wider-form {
     width: 80%;
   }
-  .geotag-columns {
-    display: block;
-  }
-  .geotag-column-1,
-  .geotag-column-2 {
-    margin: 0 auto;
-    width: 80%;
-  }
-  .geotag-column-2 {
-    margin-top: 24px;
-  }
   table.results-table {
     border: none;
   }
 }
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 780px) {
+  .user-header figure {
+    width: 100%;
+    text-align: center;
+  }
+  .results-box.buttons p {
+    width: 100%;
+  }
+  .results-box.buttons .button {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 2px solid black;
+  }
+  .button.wide-button {
+    font-size: 0.8rem;
+  }
+  table.results-table {
+    font-size: 0.7rem;
+  }
+  table.results-table a {
+    font-size: 0.7rem;
+  }
+  .button.tag-button {
+    margin: 0;
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
   .footer-column {
     display: inline;
     float: left;
@@ -6334,12 +6367,6 @@ input.check {
   .footer-column-2 {
     border-right: none;
     border-bottom: 1px solid black;
-  }
-  .test-ip {
-    float: none;
-  }
-  .test-ip-json {
-    float: none;
   }
 }
 /**

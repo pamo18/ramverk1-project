@@ -12,7 +12,7 @@ return [
         "region" => "layout",
         "template" => "anax/v2/layout/dbwebb_se",
         "data" => [
-            "baseTitle" => " | GameOverflow",
+            "baseTitle" => " | Game Overflow",
             "bodyClass" => null,
             "favicon" => "favicon.ico",
             "htmlClass" => null,
@@ -34,7 +34,7 @@ return [
             "data" => [
                 "class" => "large",
                 "siteLogo"      => "image/theme/logo_256x256.jpg",
-                "siteLogoAlt"   => "Manchester Bee",
+                "siteLogoAlt"   => "Game Overflow",
             ],
         ],
         [
@@ -42,9 +42,9 @@ return [
             "template" => "anax/v2/header/site_logo_text",
             "data" => [
                 "homeLink"      => "",
-                "siteLogoText"  => "GameOverflow",
+                "siteLogoText"  => "Game Overflow",
                 "siteLogoTextIcon" => "image/theme/logo_48x48.jpg",
-                "siteLogoTextIconAlt" => "Manchester Bee",
+                "siteLogoTextIconAlt" => "Game Overflow",
             ],
         ],
         [

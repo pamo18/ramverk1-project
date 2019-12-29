@@ -70,12 +70,16 @@
  *-----------------------------------------*/
 .region-header-col-1,
 .region-header-col-3 {
-    #desinax-vgrid.column(12);
+    #desinax-vgrid.column(18);
 }
 
 .region-header-col-2 {
     #desinax-vgrid.column(@columns);
     text-align: center;
+}
+
+.region-header-col-3 {
+    #desinax-vgrid.column(6);
 }
 
 .site-logo {
@@ -84,6 +88,15 @@
 
 .site-logo-text {
     font-size: 3em;
+}
+
+.site-logo-text a:hover {
+    text-decoration: none;
+}
+
+.site-logo-text-icon img {
+    margin-top: 2px;
+    margin-left: 2px;
 }
 /**-----------------------------------------/
  * Flash image, under navbar
@@ -504,6 +517,10 @@ table.results-table {
     cursor: pointer;
 }
 
+.form-answer input[type="submit"] {
+    width: 11rem;
+}
+
 .htmlform .buttonbar {
     text-align: center;
 }
@@ -688,6 +705,10 @@ input.check {
 
     & h4 {
         border: none;
+    }
+
+    img {
+        border-radius: 10px;
     }
 }
 

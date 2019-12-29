@@ -1,3 +1,3 @@
-#### LinkedIn:
+#### Twitch:
 
-<a href ="https://www.linkedin.com/in/paul-moreland-ba219415b"><img src="img/linkedin.png" alt="LinkedIn" style="width: 55px;"></a>
+<a href ="https://www.twitch.tv"><img src="img/icons/twitch.png" alt="Twitch" style="width: 55px;"></a>

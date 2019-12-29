@@ -11,7 +11,7 @@ return [
     // Here comes the menu items
     "items" => [
         [
-            "text" => "Start",
+            "text" => "Overview",
             "url" => "",
             "title" => "Start here",
         ],

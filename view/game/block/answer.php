@@ -6,7 +6,7 @@ namespace Anax\View;
 
 <script type="text/javascript" src=<?= url('js/pamo.js') ?>></script>
 
-<div class="flex-column flex-align-middle results-box">
+<div class="flex-column flex-align-middle results-box buttons">
     <p><?= count($answers) ?><?= count($answers) === 1 ? " Answer" : " Answers" ?></p>
     <p>
         <a class="button <?= $activeSort == "created DESC" ? "active" : null ?>" href="<?= url("game/question/$question->id?sortABy=created&sortAType=DESC") ?>">
