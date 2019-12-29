@@ -62,10 +62,12 @@ namespace Anax\View;
                                 $delete = $activeUser ? "<i id='answer-delete-$answer->id' class='fas fa-trash-alt'></i>" : null;
                             ?>
                             <?= $textFilter->doFilter("$answer->text<br>$answer->user $answer->created $edit $delete", "markdown") ?>
-                            <script>
-                                reloadHere("answer-edit-<?= $answer->id ?>", "<?= url("game/question/$question->id?admin=answer&adminType=edit&adminId=$answer->id") ?>");
-                                reloadHere("answer-delete-<?= $answer->id ?>", "<?= url("game/question/$question->id?admin=answer&adminType=delete&adminId=$answer->id") ?>");
-                            </script>
+                            <?php if ($activeUser) { ?>
+                                <script>
+                                    reloadHere("answer-edit-<?= $answer->id ?>", "<?= url("game/question/$question->id?admin=answer&adminType=edit&adminId=$answer->id") ?>");
+                                    reloadHere("answer-delete-<?= $answer->id ?>", "<?= url("game/question/$question->id?admin=answer&adminType=delete&adminId=$answer->id") ?>");
+                                </script>
+                            <?php } ?>
                         <?php } ?>
                     </p>
                 </div>
@@ -91,12 +93,14 @@ namespace Anax\View;
                                 $delete = $activeUser ? "<i id='comment-delete-a-$comment->id' class='fas fa-trash-alt'></i>" : null;
                             ?>
                             <?= $textFilter->doFilter("$comment->text - $comment->user $comment->created $voteDown $comment->vote $voteUp $edit $delete", "markdown") ?>
-                            <script>
-                                reloadHere("comment-vote-down-a-<?= $comment->id ?>", "<?= url("game/vote/comment-answer/$comment->id/down") ?>");
-                                reloadHere("comment-vote-up-a-<?= $comment->id ?>", "<?= url("game/vote/comment-answer/$comment->id/up") ?>");
-                                reloadHere("comment-edit-a-<?= $comment->id ?>", "<?= url("game/question/$question->id?admin=comment-answer&adminType=edit&adminId=$comment->id&answerId=$answer->id") ?>");
-                                reloadHere("comment-delete-a-<?= $comment->id ?>", "<?= url("game/question/$question->id?admin=comment-answer&adminType=delete&adminId=$comment->id&answerId=$answer->id") ?>");
-                            </script>
+                            <?php if ($activeUser) { ?>
+                                <script>
+                                    reloadHere("comment-vote-down-a-<?= $comment->id ?>", "<?= url("game/vote/comment-answer/$comment->id/down") ?>");
+                                    reloadHere("comment-vote-up-a-<?= $comment->id ?>", "<?= url("game/vote/comment-answer/$comment->id/up") ?>");
+                                    reloadHere("comment-edit-a-<?= $comment->id ?>", "<?= url("game/question/$question->id?admin=comment-answer&adminType=edit&adminId=$comment->id&answerId=$answer->id") ?>");
+                                    reloadHere("comment-delete-a-<?= $comment->id ?>", "<?= url("game/question/$question->id?admin=comment-answer&adminType=delete&adminId=$comment->id&answerId=$answer->id") ?>");
+                                </script>
+                            <?php } ?>
                         </p>
                     <?php endforeach ?>
                 </div>

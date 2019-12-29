@@ -52,10 +52,12 @@ endif;
                         $delete = $activeUser ? "<i id='question-delete-$question->id' class='fas fa-trash-alt'></i>" : null;
                     ?>
                     <?= $textFilter->doFilter("$question->text<br>$question->user $question->created $edit $delete", "markdown") ?>
-                    <script>
-                        reloadHere("question-edit-<?= $question->id ?>", "<?= url("game/question/$question->id?admin=question&adminType=edit") ?>");
-                        reloadHere("question-delete-<?= $question->id ?>", "<?= url("game/question/$question->id?admin=question&adminType=delete") ?>");
-                    </script>
+                    <?php if ($activeUser) { ?>
+                        <script>
+                            reloadHere("question-edit-<?= $question->id ?>", "<?= url("game/question/$question->id?admin=question&adminType=edit") ?>");
+                            reloadHere("question-delete-<?= $question->id ?>", "<?= url("game/question/$question->id?admin=question&adminType=delete") ?>");
+                        </script>
+                    <?php } ?>
                 <?php } ?>
             </p>
         </div>

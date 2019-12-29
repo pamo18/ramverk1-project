@@ -82,11 +82,11 @@ class GameController implements ContainerInjectableInterface
                     $adminForm = $this->game->getAnswerForm($adminType, $questionId);
                     break;
                 case "comment-question":
-                    $owner = $this->game->commentAnswer->findById($adminId)->user;
+                    $owner = $this->game->commentQuestion->findById($adminId)->user;
                     $adminForm = $this->game->getCommentForm($adminType, $questionId, "question");
                     break;
                 case "comment-answer":
-                    $owner = $this->game->commentQuestion->findById($adminId)->user;
+                    $owner = $this->game->commentAnswer->findById($adminId)->user;
                     $adminForm = $this->game->getCommentForm($adminType, $questionId, "answer");
                     break;
             }
