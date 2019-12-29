@@ -14,7 +14,7 @@ build:
         tests-and-coverage:
             tests:
                 before:
-                  - command: 'bash reset_testdb.bash'
+                    - command: 'bash reset_testdb.bash'
                 override:
                     -
                         command: "make phpunit"
