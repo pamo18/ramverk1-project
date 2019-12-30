@@ -16,5 +16,3 @@ INSERT INTO `Tag` (`name`) VALUES
     ("The last of us part 2"),
     ("GOTY")
 ;
-
-SELECT * FROM `Tag`;

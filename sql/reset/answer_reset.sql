@@ -12,5 +12,3 @@ INSERT INTO `Answer` (`questionid`, `user`, `text`) VALUES
     (5, "pamo18", "The Legend of Zelda: Breath of the Wild"),
     (6, "doe", "Dont know, try game-tagging it!")
 ;
-
-SELECT * FROM `Answer`;

@@ -19,5 +19,3 @@ INSERT INTO `Tag2Question` (`questionid`, `tagname`) VALUES
     (6, "The last of us"),
     (6, "The last of us part 2")
 ;
-
-SELECT * FROM `Tag2Question`;

@@ -6,7 +6,7 @@ rsync -av vendor/pamo18/ramverk1-project/config/ config/
 rsync -av vendor/pamo18/ramverk1-project/content/ content/
 rsync -av vendor/pamo18/ramverk1-project/htdocs/ htdocs/
 rsync -av vendor/pamo18/ramverk1-project/src/ src/
-rsync -av vendor/pamo18/ramverk1-project/test/Controller test/Controller/
+rsync -av vendor/pamo18/ramverk1-project/test/Controller/ test/Controller/
 rsync -av vendor/pamo18/ramverk1-project/view/ view/
 
 # Setup the sqlite3 database with reset scripts

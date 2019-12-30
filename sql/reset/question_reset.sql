@@ -12,5 +12,3 @@ INSERT INTO `Question` (`title`, `user`, `text`) VALUES
     ("Best ever Nintendo Game?", "doe", "What is the best ever Nintendo game, whatever platform?"),
     ("The Last Of Us Part 2", "pamo18", "When will The Last Of Us Part 2 be released?")
 ;
-
-SELECT * FROM `Question`;

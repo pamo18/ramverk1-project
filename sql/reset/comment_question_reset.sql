@@ -9,5 +9,3 @@ INSERT INTO `CommentQuestion` (`questionid`, `user`, `text`) VALUES
     (3, "pamo18", "That VR crap isn't for me either!"),
     (4, "doe", "Too many to choose from!")
 ;
-
-SELECT * FROM `CommentQuestion`;
