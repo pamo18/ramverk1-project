@@ -9,5 +9,9 @@ rsync -av vendor/pamo18/ramverk1-project/src/ src/
 rsync -av vendor/pamo18/ramverk1-project/test/Controller test/Controller/
 rsync -av vendor/pamo18/ramverk1-project/view/ view/
 
+# Setup the sqlite3 database
+mkdir sql
+rsync -av vendor/pamo18/ramverk1-project/sql/ sql/
+
 mkdir data
-vendor/pamo18/ramverk1-project/script/reset_db.bash
+bash vendor/pamo18/ramverk1-project/script/reset_db.bash
