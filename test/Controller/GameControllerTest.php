@@ -130,6 +130,31 @@ class GameControllerTest extends TestCase
 
 
     /**
+     * Test the route "question".
+     */
+    public function testQuestionAction()
+    {
+        $this->session->set("user", null);
+
+        $res = $this->controller->questionAction(1);
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "doe",
+            "email" => "doe@mail.com"
+        ]);
+
+        $res = $this->controller->questionAction(1);
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+    }
+
+
+
+    /**
      * Test the route "index".
      */
     public function testQuestionForm()

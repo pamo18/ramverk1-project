@@ -85,6 +85,18 @@ class QuestionControllerTest extends TestCase
      */
     public function testCreateAction()
     {
+        $this->session->set("user", null);
+
+        $res = $this->controller->createAction();
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("Anax\Response\Response", $res);
+        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
+
+        $this->session->set("user", [
+            "username" => "doe",
+            "email" => "doe@mail.com"
+        ]);
+
         $this->di->request->setGlobals([
             "post" => [
                 "anax/htmlform-id" => "Pamo\Question\HTMLForm\CreateQuestionForm",

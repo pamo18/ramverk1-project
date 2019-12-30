@@ -92,6 +92,10 @@ class QuestionController implements ContainerInjectableInterface
      */
     public function createAction() : object
     {
+        if (!$this->game->activeUser()) {
+            return $this->di->get("response")->redirect("user/login");
+        }
+
         $form = $this->game->getQuestionForm("create");
         $form->check();
 

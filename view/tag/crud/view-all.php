@@ -35,12 +35,12 @@ endif;
             </tr>
         </thead>
         <?php foreach ($game->tagQuestion->joinWhere("tagname = ?", $tag->name, "Question", "questionid = Question.id") as $row) : ?>
-            <tr id="q-<?= $row->id ?>">
+            <tr id="<?= "$tag->name-q-$row->id" ?>">
                 <td width="50%"><?= $row->title ?></td>
                 <td width="25%"><?= $row->user ?></td>
                 <td width="25%"><?= $row->created ?></td>
             </tr>
-            <script>tableLinks("q-<?= $row->id ?>", "<?= url("game/question/$row->id") ?>");</script>
+            <script>tableLinks("<?= "$tag->name-q-$row->id" ?>", "<?= url("game/question/$row->id") ?>");</script>
         <?php endforeach; ?>
     </table>
 <?php endforeach; ?>

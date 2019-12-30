@@ -8,6 +8,7 @@ use Anax\Commons\ContainerInjectableTrait;
 /**
  * Game controller
  * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+ * @SuppressWarnings(PHPMD.NPathComplexity)
  */
 class GameController implements ContainerInjectableInterface
 {
@@ -34,7 +35,6 @@ class GameController implements ContainerInjectableInterface
             "textFilter" => $this->di->get("textfilter"),
             "gravatar" => $this->di->get("gravatar"),
             "user" => $this->game->user,
-            "activeUser" => $this->game->activeUser(),
             "activeSort" => "$this->sortBy $this->sortType"
         ];
 
@@ -105,8 +105,15 @@ class GameController implements ContainerInjectableInterface
             $data["adminAnswerId"] = $admin === "answer" ? $request->getGet("adminId") : $request->getGet("answerId", null);
         }
 
-        $this->page->add($this->base . "/block/question", $data);
-        $this->page->add($this->base . "/block/answer", $data);
+        if ($this->game->activeUser()) {
+            $this->page->add($this->base . "/block/question-admin", $data);
+            $this->page->add($this->base . "/block/answer-sort", $data);
+            $this->page->add($this->base . "/block/answer-admin", $data);
+        } else {
+            $this->page->add($this->base . "/block/question-no-admin", $data);
+            $this->page->add($this->base . "/block/answer-sort", $data);
+            $this->page->add($this->base . "/block/answer-no-admin", $data);
+        }
 
         return $this->page->render([
             "title" => $this->title,
