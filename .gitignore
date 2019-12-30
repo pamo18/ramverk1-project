@@ -1,6 +1,9 @@
 /.bin
 /build
+/cache
+/data
 /vendor
+/theme
 memory::
 composer.lock
 /config/api.php
