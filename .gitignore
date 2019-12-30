@@ -1,7 +1,6 @@
 /.bin
 /build
 /cache
-/data
 /vendor
 /theme
 memory::
