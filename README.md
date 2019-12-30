@@ -30,6 +30,12 @@ Copy all the necessary files to the current framework.
 bash vendor/pamo18/ramverk1-project/script/post-composer-require.bash
 ```
 
+Dont forget to add the namespace to the autoloader in your composer file.
+
+```
+Pamo\\: src/
+```
+
 Dependency
 ------------------
 

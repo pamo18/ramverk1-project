@@ -1,8 +1,8 @@
 /.bin
 /build
-/cache
 /vendor
 /theme
 memory::
 composer.lock
 /config/api.php
+docker-compose.yml
