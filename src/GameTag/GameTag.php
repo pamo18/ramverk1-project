@@ -30,10 +30,7 @@ class GameTag
     public function init()
     {
         $this->multiCurl = new MultiCurl();
-
-        $filename = ANAX_INSTALL_PATH . "/config/api.php";
-        $api =  file_exists($filename) ? require $filename : null;
-        $this->baseAddress = $api ? $api["url"]["rawg"] : getenv("API_URL_RAWG");
+        $this->baseAddress = "https://api.rawg.io";
     }
 
 
